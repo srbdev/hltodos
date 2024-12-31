@@ -155,13 +155,17 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('hltodos.helloWorld', () => {
+	const activateHightlights = vscode.commands.registerCommand('hltodos.activateHighlights', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from hltodos!');
+		vscode.window.showInformationMessage('Hightlights activated!');
 	});
 
-	context.subscriptions.push(disposable);
+    const deactivateHightlights = vscode.commands.registerCommand('hltodos.deactivateHighlights', () => {
+        vscode.window.showInformationMessage('Hightlights deactivated!');
+    });
+
+	context.subscriptions.push(activateHightlights, deactivateHightlights);
 }
 
 // This method is called when your extension is deactivated
