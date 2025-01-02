@@ -1,7 +1,14 @@
 {
   "name": "hltodos",
   "displayName": ":hltodos",
-  "description": "",
+  "description": "A Visual Studio Code extension that simply highlights todo comments",
+  "keywords": [
+    "highlights",
+    "fixme",
+    "notes",
+    "todos",
+    "warnings"
+  ],
   "version": "0.0.1",
   "repository": {
     "type": "git",
