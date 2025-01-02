@@ -2,6 +2,7 @@
   "name": "hltodos",
   "displayName": ":hltodos",
   "description": "A Visual Studio Code extension that simply highlights todo comments",
+  "license": "MIT",
   "keywords": [
     "highlights",
     "fixme",
