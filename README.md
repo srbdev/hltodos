@@ -3,6 +3,9 @@
 `:hltodos` is a Visual Studio Code extension that simply highlights todo
 comments, like `TODO`, `NOTE`, `FIX`, `WARN`, etc.
 
+<br>
+<img src="https://github.com/srbdev/media/blob/master/png/hltodos.png">
+
 ## Build and Package
 
 ```sh
