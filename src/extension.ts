@@ -7,7 +7,6 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Extension "hltodos" is now active!');
 
 	// Define the comment patterns to highlight
     const patterns = {
@@ -59,95 +58,59 @@ export function activate(context: vscode.ExtensionContext) {
         ])
     );
 
-	let timeout: NodeJS.Timeout | undefined = undefined;
-
 	function triggerUpdateDecorations() {
-		console.log('triggerUpdateDecorations()')
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = undefined;
-        }
-        timeout = setTimeout(updateDecorations, 500);
+        updateDecorations();
     }
 
-	function updateDecorations() {
-		console.log('updateDecations()')
-        const activeEditor = vscode.window.activeTextEditor;
-        if (!activeEditor) {
-            return;
-        }
+    function updateDecorations() {
+        const visibleEditors = vscode.window.visibleTextEditors;
 
-        const visibleRanges = activeEditor.visibleRanges;
-        const document = activeEditor.document;
+        for (const editor of visibleEditors) {
+            const document = editor.document;
 
-        // Initialize decoration arrays for each pattern
-        const decorationsArray: { [key: string]: vscode.DecorationOptions[] } = {};
-        Object.keys(patterns).forEach(key => {
-            decorationsArray[key] = [];
-        });
+            // Initialize decoration arrays for each pattern
+            const decorationsArray: { [key: string]: vscode.DecorationOptions[] } = {};
+            Object.keys(patterns).forEach(key => {
+                decorationsArray[key] = [];
+            });
 
-        // Only process text in visible ranges for performance
-        for (const visibleRange of visibleRanges) {
-            const text = document.getText(visibleRange);
+            // Process all text in the document instead of just visible ranges
+            const text = document.getText();
             const lines = text.split('\n');
-            let lineOffset = document.positionAt(document.offsetAt(visibleRange.start)).line;
 
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
+            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+                const line = lines[lineIndex];
 
-                // Only process if the line contains a comment
-                if (true) {
-                    Object.entries(patterns).forEach(([key, value]) => {
-                        let index = 0;
-                        while ((index = line.indexOf(value.pattern, index)) !== -1) {
-                            // Verify we're in a comment
-                            const isInComment = true
+                Object.entries(patterns).forEach(([key, value]) => {
+                    let index = 0;
+                    while ((index = line.indexOf(value.pattern, index)) !== -1) {
+                        const range = new vscode.Range(
+                            new vscode.Position(lineIndex, index),
+                            new vscode.Position(lineIndex, index + value.pattern.length)
+                        );
 
-                            if (isInComment) {
-                                const range = new vscode.Range(
-                                    new vscode.Position(lineOffset + i, index),
-                                    new vscode.Position(lineOffset + i, index + value.pattern.length)
-                                );
-
-								console.log(line)
-								console.log(range)
-                                decorationsArray[key].push({ range });
-                            }
-                            index += value.pattern.length;
-                        }
-                    });
-                }
+                        decorationsArray[key].push({ range });
+                        index += value.pattern.length;
+                    }
+                });
             }
-        }
 
-        // Apply decorations
-        Object.entries(decorationTypes).forEach(([key, decorationType]) => {
-			console.log(key)
-            activeEditor.setDecorations(decorationType, decorationsArray[key]);
-        });
+            // Apply decorations for this editor
+            Object.entries(decorationTypes).forEach(([key, decorationType]) => {
+                editor.setDecorations(decorationType, decorationsArray[key]);
+            });
+        }
     }
 
-    let activeEditor = vscode.window.activeTextEditor;
-    if (activeEditor) {
+    triggerUpdateDecorations();
+
+    // Update the event handlers to handle multiple editors
+    vscode.window.onDidChangeVisibleTextEditors(() => {
         triggerUpdateDecorations();
-    }
-
-	// Register event handlers
-    vscode.window.onDidChangeActiveTextEditor(editor => {
-        activeEditor = editor;
-        if (editor) {
-            triggerUpdateDecorations();
-        }
     }, null, context.subscriptions);
 
     vscode.workspace.onDidChangeTextDocument(event => {
-        if (activeEditor && event.document === activeEditor.document) {
-            triggerUpdateDecorations();
-        }
-    }, null, context.subscriptions);
-
-    vscode.window.onDidChangeTextEditorVisibleRanges(event => {
-        if (activeEditor && event.textEditor === activeEditor) {
+        if (vscode.window.visibleTextEditors.some(editor => editor.document === event.document)) {
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
