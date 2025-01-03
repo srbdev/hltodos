@@ -13,19 +13,19 @@ export function activate(context: vscode.ExtensionContext) {
     const patterns = {
         fix: {
             pattern: 'FIX',
-            type: new vscode.ThemeColor('errorForeground')
+            type: new vscode.ThemeColor('terminal.ansiRed')
         },
         fixme: {
             pattern: 'FIXME',
-            type: new vscode.ThemeColor('errorForeground')
+            type: new vscode.ThemeColor('terminal.ansiRed')
         },
         hack: {
             pattern: 'HACK',
-            type: new vscode.ThemeColor('editorWarning.foreground')
+            type: new vscode.ThemeColor('terminal.ansiYellow')
         },
         note: {
             pattern: 'NOTE',
-            type: new vscode.ThemeColor('testing.iconPassed')
+            type: new vscode.ThemeColor('terminal.ansiGreen')
         },
         perf: {
             pattern: 'PERF',
@@ -33,15 +33,15 @@ export function activate(context: vscode.ExtensionContext) {
         },
         todo: {
             pattern: 'TODO',
-            type: new vscode.ThemeColor('textLink.foreground')
+            type: new vscode.ThemeColor('terminal.ansiBlue')
         },
         warn: {
             pattern: 'WARN',
-            type: new vscode.ThemeColor('editorWarning.foreground')
+            type: new vscode.ThemeColor('terminal.ansiYellow')
         },
         warning: {
             pattern: 'WARNING',
-            type: new vscode.ThemeColor('editorWarning.foreground')
+            type: new vscode.ThemeColor('terminal.ansiYellow')
         },
     };
 
