@@ -11,35 +11,35 @@ export function activate(context: vscode.ExtensionContext) {
 	// Define the comment patterns to highlight
     const patterns = {
         fix: {
-            pattern: 'FIX',
+            pattern: 'FIX:',
             type: new vscode.ThemeColor('terminal.ansiRed')
         },
         fixme: {
-            pattern: 'FIXME',
+            pattern: 'FIXME:',
             type: new vscode.ThemeColor('terminal.ansiRed')
         },
         hack: {
-            pattern: 'HACK',
+            pattern: 'HACK:',
             type: new vscode.ThemeColor('terminal.ansiYellow')
         },
         note: {
-            pattern: 'NOTE',
+            pattern: 'NOTE:',
             type: new vscode.ThemeColor('terminal.ansiGreen')
         },
         perf: {
-            pattern: 'PERF',
+            pattern: 'PERF:',
             type: new vscode.ThemeColor('terminal.ansiMagenta')
         },
         todo: {
-            pattern: 'TODO',
+            pattern: 'TODO:',
             type: new vscode.ThemeColor('terminal.ansiBlue')
         },
         warn: {
-            pattern: 'WARN',
+            pattern: 'WARN:',
             type: new vscode.ThemeColor('terminal.ansiYellow')
         },
         warning: {
-            pattern: 'WARNING',
+            pattern: 'WARNING:',
             type: new vscode.ThemeColor('terminal.ansiYellow')
         },
     };

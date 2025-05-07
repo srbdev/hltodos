@@ -1,7 +1,7 @@
 # :hltodos
 
 `:hltodos` is a Visual Studio Code extension that simply highlights todo
-comments, like `TODO`, `NOTE`, `FIX`, `WARN`, etc.
+comments, like `TODO:`, `NOTE:`, `FIX:`, `WARN:`, etc.
 
 <br>
 <img src="https://github.com/srbdev/media/blob/master/png/hltodos.png">
@@ -15,7 +15,7 @@ npm run package
 ## Install
 
 ```sh
-code --install-extension hltodos-0.0.1.vsix
+code --install-extension hltodos-0.0.5.vsix
 ```
 
 ## Credits
