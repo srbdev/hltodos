@@ -26,6 +26,10 @@ export function activate(context: vscode.ExtensionContext) {
             pattern: 'NOTE:',
             type: new vscode.ThemeColor('terminal.ansiGreen')
         },
+        info: {
+            pattern: 'INFO:',
+            type: new vscode.ThemeColor('terminal.ansiWhite')
+        },
         perf: {
             pattern: 'PERF:',
             type: new vscode.ThemeColor('terminal.ansiMagenta')

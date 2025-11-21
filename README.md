@@ -15,7 +15,7 @@ npm run package
 ## Install
 
 ```sh
-code --install-extension hltodos-0.0.5.vsix
+code --install-extension hltodos-0.0.6.vsix
 ```
 
 ## Credits
