@@ -83,25 +83,27 @@ export function activate(context: vscode.ExtensionContext) {
                 decorationsArray[key] = [];
             });
 
-            // Process all text in the document instead of just visible ranges
-            const text = document.getText();
-            const lines = text.split('\n');
+            // Process only visible ranges for better performance
+            for (const visibleRange of editor.visibleRanges) {
+                const startLine = visibleRange.start.line;
+                const endLine = visibleRange.end.line;
 
-            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-                const line = lines[lineIndex];
+                for (let lineIndex = startLine; lineIndex <= endLine; lineIndex++) {
+                    const line = document.lineAt(lineIndex).text;
 
-                Object.entries(patterns).forEach(([key, value]) => {
-                    let index = 0;
-                    while ((index = line.indexOf(value.pattern, index)) !== -1) {
-                        const range = new vscode.Range(
-                            new vscode.Position(lineIndex, index),
-                            new vscode.Position(lineIndex, index + value.pattern.length)
-                        );
+                    Object.entries(patterns).forEach(([key, value]) => {
+                        let index = 0;
+                        while ((index = line.indexOf(value.pattern, index)) !== -1) {
+                            const range = new vscode.Range(
+                                new vscode.Position(lineIndex, index),
+                                new vscode.Position(lineIndex, index + value.pattern.length)
+                            );
 
-                        decorationsArray[key].push({ range });
-                        index += value.pattern.length;
-                    }
-                });
+                            decorationsArray[key].push({ range });
+                            index += value.pattern.length;
+                        }
+                    });
+                }
             }
 
             // Apply decorations for this editor
@@ -122,6 +124,10 @@ export function activate(context: vscode.ExtensionContext) {
         if (vscode.window.visibleTextEditors.some(editor => editor.document === event.document)) {
             triggerUpdateDecorations();
         }
+    }, null, context.subscriptions);
+
+    vscode.window.onDidChangeTextEditorVisibleRanges(() => {
+        triggerUpdateDecorations();
     }, null, context.subscriptions);
 }
 
