@@ -62,9 +62,14 @@ export function activate(context: vscode.ExtensionContext) {
         ])
     );
 
+	let updateTimeout: NodeJS.Timeout | undefined;
+
 	function triggerUpdateDecorations() {
-        updateDecorations();
-    }
+		if (updateTimeout) {
+			clearTimeout(updateTimeout);
+		}
+		updateTimeout = setTimeout(updateDecorations, 100);
+	}
 
     function updateDecorations() {
         const visibleEditors = vscode.window.visibleTextEditors;
