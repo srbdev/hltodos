@@ -62,6 +62,11 @@ export function activate(context: vscode.ExtensionContext) {
         ])
     );
 
+	// Register decoration types for cleanup on deactivation
+	Object.values(decorationTypes).forEach(decorationType => {
+		context.subscriptions.push(decorationType);
+	});
+
 	let updateTimeout: NodeJS.Timeout | undefined;
 
 	function triggerUpdateDecorations() {
