@@ -4,3 +4,18 @@ node_modules
 .vscode-test/
 *.vsix
 *.code-workspace
+
+# Shell config files
+.bash_profile
+.bashrc
+.profile
+.zprofile
+.zshrc
+
+# Tool configs
+.claude/
+.gitconfig
+.gitmodules
+.idea
+.mcp.json
+.ripgreprc
