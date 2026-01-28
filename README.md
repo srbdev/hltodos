@@ -2,7 +2,7 @@
 
 A Visual Studio Code extension that highlights todo comments like `TODO:`, `NOTE:`, `FIX:`, `WARN:`, etc.
 
-![hltodos screenshot](https://github.com/srbdev/media/blob/master/png/hltodos.png?raw=true)
+![hltodos screenshot](https://github.com/srbdev/media/blob/master/png/hltodos-0.0.9.png?raw=true)
 
 ## Features
 
