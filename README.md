@@ -32,6 +32,13 @@ A Visual Studio Code extension that highlights todo comments like `TODO:`, `NOTE
 npm run package
 ```
 
+Or with Docker:
+
+```sh
+docker build -t hltodos-builder .
+docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app hltodos-builder
+```
+
 ## Install
 
 ```sh

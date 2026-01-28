@@ -1,0 +1,7 @@
+*
+
+!src/
+!package*.json
+!tsconfig.json
+!eslint.config.mjs
+!extension*
